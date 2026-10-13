@@ -2,8 +2,8 @@
 
 #include "../../../domain/value_objects/slice_2d.hpp"
 
-#include <expected>
 #include <cstdint>
+#include <expected>
 #include <string_view>
 
 namespace neurometrix::core2d::application {
@@ -13,6 +13,8 @@ enum class DicomError : std::uint8_t {
     InvalidHeader,
     MissingMandatoryTag,
     CorruptedPixelData,
+    UnsupportedModality,        // not CT
+    UnsupportedBodyPart,        // not HEAD/BRAIN
     IOError,
     UnknownError,
 };

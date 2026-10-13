@@ -155,20 +155,8 @@ ProcessStudyUseCase::execute(const contracts::StudyRequest& request) noexcept {
     try {
         using namespace domain;
 
-        // ---- Step 4: Hounsfield conversion + brain window ----
-        // The DICOM loader already returns raw values. We assume slope=1,
-        // intercept=0 (identity) if the loader does not provide them.
-        const auto& raw = slice.pixels();
-        const WindowParams brain_w = window_of(WindowPreset::Brain);
-
-        Eigen::MatrixXf hu(raw.rows(), raw.cols());
-        for (int i = 0; i < raw.rows(); ++i) {
-            for (int j = 0; j < raw.cols(); ++j) {
-                const double hu_val = HounsfieldWindow::to_hu(
-                    static_cast<std::int32_t>(raw(i, j)), 1.0, 0.0);
-                hu(i, j) = static_cast<float>(hu_val);
-            }
-        }
+        // ---- Step 4: use HU directly (adapter already applied slope/intercept) ----
+        const auto& hu = slice.hu();
 
         // Basic HU statistics
         result.mean_hu   = static_cast<double>(hu.mean());
