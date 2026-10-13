@@ -1,0 +1,16 @@
+{
+  "name": "neurometrix-neuro-2d",
+  "version": "0.1.0",
+  "description": "2D mathematical core for the Neurometrix ecosystem",
+  "dependencies": [
+    "librdkafka",
+    "libpq",
+    "dcmtk",
+    "openssl",
+    "spdlog",
+    "prometheus-cpp",
+    "cpp-httplib",
+    "eigen3",
+    "gtest"
+  ]
+}

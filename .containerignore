@@ -1,0 +1,30 @@
+# Build artifacts
+build/
+build2/
+out/
+cmake-build-*/
+_deps/
+
+# VCS
+.git/
+.gitignore
+
+# IDE
+.vs/
+.idea/
+.vscode/
+
+# Local env
+.env.local
+*.log
+
+# Docs and assets (not needed in container image)
+docs/
+*.md
+!README.md
+
+# Kubernetes manifests (deployed separately)
+k8s/
+
+# CI config (not needed inside the image)
+.github/

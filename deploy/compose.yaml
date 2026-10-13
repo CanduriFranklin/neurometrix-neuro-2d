@@ -1,0 +1,55 @@
+version: "3.9"
+
+# ============================================================================
+# neuro-2d - Local development stack
+# ============================================================================
+# Brings up only the Core 2D. Kafka and PostgreSQL are expected to run on
+# the host (Windows metal) and are reached via host.containers.internal.
+# ============================================================================
+
+services:
+  neuro-2d:
+    image: localhost/neurometrix/neuro-2d:dev-cpu
+    container_name: neuro-2d
+    hostname: neuro-2d
+    restart: unless-stopped
+
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: host.containers.internal:9092
+      KAFKA_SECURITY_PROTOCOL: PLAINTEXT
+      KAFKA_TOPIC_IN: core-2d.requests
+      KAFKA_TOPIC_OUT: core-2d.results
+      KAFKA_CONSUMER_GROUP: core-2d-cg
+      KAFKA_TIMEOUT_MS: "5000"
+
+      DATABASE_URL: postgresql://neurometrix:Enginer012%25@host.containers.internal:5432/neurometrix_core_2d
+      DATABASE_SSLMODE: disable
+      DATABASE_TIMEOUT_MS: "5000"
+
+      METRICS_PORT: "9091"
+      METRICS_BIND_ADDRESS: 0.0.0.0
+
+      LOG_LEVEL: info
+      LOG_FORMAT: json
+
+      COMPUTE_BACKEND: cpu
+
+    ports:
+      - "9091:9091"
+
+    extra_hosts:
+      - "host.containers.internal:host-gateway"
+
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost:9091/healthz"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 15s
+
+    networks:
+      - neurometrix
+
+networks:
+  neurometrix:
+    driver: bridge
