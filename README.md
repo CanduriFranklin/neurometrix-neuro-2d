@@ -1,11 +1,17 @@
-﻿# neuro-2d
 
-Independent repository of the Mathematical_Neurometrix ecosystem.
+<div align="center">
+  <img src="logo.png" alt="Neurometrix Logo" width="300"/>
+  
+  # NEUROMETRIX
+  
+  **ADVANCED MATHEMATICAL NEUROIMAGING SYSTEM**  
+  *QUANTITATIVE STRUCTURAL MEASUREMENT & AGENTIAL INFERENCE ENGINE*
+  
+  <br/>
+  <img src="hackathon.png" alt="AMD Developer Hackathon ACT III" width="600"/>
+</div>
 
-## Stack
-- C++23
-- Apache Kafka
-- PostgreSQL 18
-- AMD ROCm
-- Eigen 5.0.0
+---
 
+
+Specialized C++ engine for 2d-Dimensional imaging. Part of the Neurometrix microservice ecosystem.
